@@ -9,8 +9,8 @@ begin
 
   Jeweler::Tasks.new do |gem|
     gem.name              = 'rack-conneg'
-    gem.summary           = %Q{TODO: one-line summary of your gem}
-    gem.description       = %Q{TODO: longer description of your gem}
+    gem.summary           = 'Rack middleware for static file content negotiation'
+    gem.description       = 'Negotiate the best static file for a request based on client preferences'
     gem.email             = 'dan.kubb@gmail.com'
     gem.homepage          = 'http://github.com/dkubb/rack-conneg'
     gem.authors           = [ 'Dan Kubb' ]

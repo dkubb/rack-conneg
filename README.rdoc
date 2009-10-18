@@ -1,9 +1,15 @@
 = rack-conneg
 
-Description goes here.
+Negotiate the best static file for a request based on client preferences.
+
+== Usage
+
+Usage is the same as Rack::Static, eg:
+
+  use Rack::Conneg::Static, :urls => %w[ /css /images ], :root => 'public'
 
 == Note on Patches/Pull Requests
- 
+
 * Fork the project.
 * Make your feature addition or bug fix.
 * Add tests for it. This is important so I don't break it in a
