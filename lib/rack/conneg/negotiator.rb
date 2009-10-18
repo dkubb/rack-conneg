@@ -67,7 +67,7 @@ module Rack
       def call
         path     = select_variant
         response = path && path.mime_type ? serve_path(path) : NOT_ACCEPTABLE
-        self.class.append_vary_header(response[1], 'Accept')
+        Utils.append_vary_header(response[1], 'Accept')
         response
       end
 
@@ -98,53 +98,6 @@ module Rack
         status, headers, body = pass(@request.env.merge('PATH_INFO' => path_info))
         headers['Content-Location'] = path_info if (200..299).include?(status)
         [ status, headers, body ]
-      end
-
-      # Append client header names used to negotiate the response to Vary
-      #
-      # @param [Hash] headers
-      #   the Rack response headers
-      # @param [Array<String>] *names
-      #   the client headers used to negotiate the response
-      #
-      # @return [undefined]
-      #
-      # @api private
-      def self.append_vary_header(headers, *names)
-        vary = split_header(headers['Vary'])
-        return if vary.include?('*')
-        headers['Vary'] = join_header(vary | names)
-      end
-
-      # Split the header value into an Array
-      #
-      # @param [#to_s] header
-      #   the header value to split
-      #
-      # @return [Array<String>]
-      #   the header values
-      #
-      # @api private
-      def self.split_header(header)
-        header.to_s.delete(' ').split(',')
-      end
-
-      # Join the header values into a String
-      #
-      # @param [Array<String>] values
-      #   the header values to join
-      #
-      # @return [String]
-      #   the header value
-      #
-      # @api private
-      def self.join_header(values)
-        values.join(',')
-      end
-
-      class << self
-        private :split_header
-        private :join_header
       end
 
     end

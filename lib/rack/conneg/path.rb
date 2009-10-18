@@ -148,7 +148,7 @@ module Rack
       #
       # @api private
       def self.normalize_path_info(path_info)
-        "/#{Utils.unescape(path_info.to_s).gsub(/\A\//, '')}"
+        "/#{Rack::Utils.unescape(path_info.to_s).gsub(/\A\//, '')}"
       end
 
     end
