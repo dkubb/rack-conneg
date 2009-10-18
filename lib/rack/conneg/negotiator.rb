@@ -1,11 +1,6 @@
 module Rack
   class Conneg
     class Negotiator
-      NOT_ACCEPTABLE = [
-        406,
-        { 'Content-Type' => 'text/plain', 'Content-Length' => '19' },
-        "406 Not Acceptable\n",
-      ].freeze
 
       # Negotiate a response using the request headers
       #
