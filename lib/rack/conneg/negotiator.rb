@@ -47,7 +47,7 @@ module Rack
       #
       # @api private
       def pass?
-        not @path.variants?
+        not @path.exist? ? @path.mime_type.nil? : @path.variants?
       end
 
       # The response from the next Rack app
@@ -70,8 +70,8 @@ module Rack
       #
       # @api private
       def call
-        variant  = select_variant
-        response = variant ? serve_path(variant) : NOT_ACCEPTABLE
+        path     = select_variant
+        response = path && path.mime_type ? serve_path(path) : NOT_ACCEPTABLE
         self.class.append_vary_header(response[1], 'Accept')
         response
       end

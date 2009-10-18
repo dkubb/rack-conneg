@@ -3,7 +3,6 @@ require 'pathname'
 module Rack
   class Conneg
     class Path
-      EXTENSION_REGEXP = Regexp.union(*Mime::MIME_TYPES.keys.map { |ext| ext[1..-1] }).freeze
 
       # Return the request path
       #
@@ -38,6 +37,16 @@ module Rack
       # @api private
       def mime_type
         Mime.mime_type(extname, nil)
+      end
+
+      # Test if the request path exists
+      #
+      # @return [Boolean]
+      #   true if the requested path exists
+      #
+      # @api private
+      def exist?
+        @path.exist?
       end
 
       # Test if there are variants for the request path
@@ -129,7 +138,7 @@ module Rack
       #
       # @api private
       def pattern
-        @pattern ||= /\A#{Regexp.escape(path_info)}\.#{EXTENSION_REGEXP}\z/.freeze
+        @pattern ||= /\A#{Regexp.escape(path_info)}\.[a-z\d]+\z/.freeze
       end
 
       # Normalize the request path info

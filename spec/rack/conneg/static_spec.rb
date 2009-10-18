@@ -128,8 +128,6 @@ describe Rack::Conneg::Static do
 
   describe 'GET path for file with unknown media type' do
     before do
-      pending
-
       create_file(@file = 'index.unknown')
 
       request "/#{@file}"
